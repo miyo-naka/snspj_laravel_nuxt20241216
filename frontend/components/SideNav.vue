@@ -1,7 +1,7 @@
 <template>
   <div class="SideNav">
     <h1>SHARE</h1>
-    <a href="/">ホーム</a>
+    <a href="/"><font-awesome-icon :icon="['fas', 'house']" />ホーム</a>
     <a href="">ログアウト</a>
     <p>シェア</p>
     <textarea v-model="post" name="post" id="post"></textarea>

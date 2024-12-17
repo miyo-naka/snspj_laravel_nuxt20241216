@@ -3,29 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Post;
+use App\Models\Comment;
 
-class PostController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * Get posts list.
      */
-    public function index()
+    public function index($postId)
     {
-        $posts = Post::with('user')->get();
+        $comments = Comment::with('user')->where('post_id', $postId)->get();
         return response()->json([
-            'data' => $posts
+            'data' => $comments
         ], 200);
     }
 
     /**
      * Store a newly created resource in storage.
-     * create new post.
      */
-    public function store(Request $request)
+    public function store(Request $request, $postId)
     {
-        $post = Post::create($request->all());
+        $comment = $request->all();
+        $comment['post_id'] = $postId;
+        $post = Comment::create($comment);
         return response()->json([
             'data' => $post
         ], 201);
