@@ -18,12 +18,6 @@ export default {
       { name: "format-detection", content: "telephone=no" },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
-    script: [
-      {
-        src: "https://kit.fontawesome.com/8f10bc7fb3.js",
-        crossorigin: "anonymous",
-      },
-    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
