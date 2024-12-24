@@ -3,13 +3,19 @@
     <div class="message_inner">
       <ul class="message_list">
         <li v-for="post in filteredPosts" :key="post.id">
-          <nuxt-link :to="`/posts/${post.id}`">
-            {{ post.post }}
-            <span class="like">♡</span>
-            <span class="like_count">1</span>
-            <span class="unlike">✖</span>
-            <span class="undo">戻す</span><br />
-            {{ post.user.name }}
+          <nuxt-link class="nuxt-link" :to="`/posts/${post.id}`">
+            <p>
+              {{ post.post }}
+              <span class="like"
+                ><font-awesome-icon :icon="['fas', 'heart']"
+              /></span>
+              <span class="like_count">1</span>
+              <span class="unlike"
+                ><font-awesome-icon :icon="['fas', 'circle-xmark']"
+              /></span>
+              <span class="undo">戻す</span>
+            </p>
+            <p>{{ post.user.name }}</p>
           </nuxt-link>
         </li>
       </ul>
@@ -59,12 +65,19 @@ export default {
 }
 .message_list {
   margin: 0;
-  padding: 10px;
+  padding: 0px;
 }
 .message_list li {
   list-style: none;
 }
+.message_list li:not(:last-child) {
+  border-bottom: 1px solid gray;
+}
 .message_list a {
   text-decoration: none;
+}
+.message_list p {
+  padding: 5px 10px;
+  margin: 0;
 }
 </style>

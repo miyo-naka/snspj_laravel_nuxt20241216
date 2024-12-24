@@ -1,8 +1,10 @@
 <template>
   <div class="SideNav">
-    <h1>SHARE</h1>
-    <a href="/"><font-awesome-icon :icon="['fas', 'house']" />ホーム</a>
-    <a href="">ログアウト</a>
+    <h1><img src="../assets/images/logo.png" width="80%" /></h1>
+    <a href="/"><font-awesome-icon :icon="['fas', 'house']" /> ホーム</a>
+    <a href=""
+      ><font-awesome-icon :icon="['fas', 'right-from-bracket']" /> ログアウト</a
+    >
     <p>シェア</p>
     <textarea v-model="post" name="post" id="post"></textarea>
     <button @click="handleAddPost">シェアする</button>

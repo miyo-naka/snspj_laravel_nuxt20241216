@@ -5,10 +5,13 @@
   </div>
 </template>
 
-<style scoped>
+<style>
 .default_layout {
   margin-top: 0;
   width: 100%;
   display: flex;
+}
+h2 {
+  font-size: 20px;
 }
 </style>
