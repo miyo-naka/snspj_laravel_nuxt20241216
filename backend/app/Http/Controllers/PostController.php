@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('user')->get();
+        $posts = Post::with('user', 'likes')->get();
         return response()->json([
             'data' => $posts
         ], 200);
@@ -50,8 +50,13 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($postId)
     {
-        //
+        $post = Post::find($postId);
+        if(!$post){
+            return response()->json(['message' => 'Post not found'], 404);
+        }
+        $post ->delete();
+        return response()->json(['message' => 'Post deleted successfully']);
     }
 }

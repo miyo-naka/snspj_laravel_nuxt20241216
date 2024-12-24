@@ -23,9 +23,9 @@ import Message from "@/components/Message.vue";
 export default {
   data() {
     return {
-      postId: null, // 動的ルートから取得
-      comments: [], // コメント一覧
-      newComment: "", // 新しいコメント入力内容
+      postId: null,
+      comments: [],
+      newComment: "",
     };
   },
 
