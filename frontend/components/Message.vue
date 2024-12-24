@@ -3,20 +3,24 @@
     <div class="message_inner">
       <ul class="message_list">
         <li v-for="post in filteredPosts" :key="post.id">
-          <nuxt-link class="nuxt-link" :to="`/posts/${post.id}`">
+          <div class="message_list_inner">
             <p>
               {{ post.post }}
-              <span class="like"
-                ><font-awesome-icon :icon="['fas', 'heart']"
-              /></span>
-              <span class="like_count">1</span>
-              <span class="unlike"
-                ><font-awesome-icon :icon="['fas', 'circle-xmark']"
-              /></span>
-              <span class="undo">戻す</span>
             </p>
-            <p>{{ post.user.name }}</p>
-          </nuxt-link>
+            <div class="like">
+              <font-awesome-icon :icon="['fas', 'heart']" />
+            </div>
+            <div class="like_count">1</div>
+            <div class="delete">
+              <button @click="deletePost(post.id)">
+                <font-awesome-icon :icon="['fas', 'circle-xmark']" />
+              </button>
+            </div>
+            <nuxt-link class="nuxt-link" :to="`/posts/${post.id}`">
+              <img src="../assets/images/detail.png" width="30px" />
+            </nuxt-link>
+          </div>
+          <p>{{ post.user.name }}</p>
         </li>
       </ul>
     </div>
@@ -50,6 +54,14 @@ export default {
       this.posts = resPosts.data.data;
       console.log("getPosts data:", resPosts.data);
     },
+    async deletePost(postId) {
+      const resPost = await axios.delete(
+        `http://localhost:8000/api/posts/${postId}`
+      );
+      console.log("deletePost response:", resPost.data);
+      await this.getPosts();
+      alert("投稿が削除されました");
+    },
   },
   created() {
     this.getPosts();
@@ -79,5 +91,8 @@ export default {
 .message_list p {
   padding: 5px 10px;
   margin: 0;
+}
+.message_list_inner {
+  display: flex;
 }
 </style>

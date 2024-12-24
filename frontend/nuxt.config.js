@@ -51,10 +51,9 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
-  googleFonts: {
-    families: {
-      Roboto: [100, 400, 500, 700],
-      Hurricane: [400, 700, 900],
-    },
-  },
+  // googleFonts: {
+  //   families: {
+  //     Hurricane: [400, 700, 900],
+  //   },
+  // },
 };
