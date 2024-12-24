@@ -7,10 +7,10 @@
             <p>
               {{ post.post }}
             </p>
-            <div class="like">
-              <font-awesome-icon :icon="['fas', 'heart']" />
-            </div>
-            <div class="like_count">1</div>
+            <button @click="toggleLike(post)" class="like-button">
+              <span :class="post.liked ? 'liked' : ''">♥</span>
+            </button>
+            <div class="like_count">{{ likeCount }}</div>
             <div class="delete">
               <button @click="deletePost(post.id)">
                 <font-awesome-icon :icon="['fas', 'circle-xmark']" />
@@ -37,6 +37,7 @@ export default {
   data() {
     return {
       posts: [],
+      likeCount: 0,
     };
   },
   computed: {
@@ -51,7 +52,11 @@ export default {
   methods: {
     async getPosts() {
       const resPosts = await axios.get("http://localhost:8000/api/posts");
-      this.posts = resPosts.data.data;
+      this.posts = resPosts.data.data.map((post) => {
+        post.liked = post.likes.some((like) => like.user_id === 1);
+        post.like_count = post.likes.length;
+        return post;
+      });
       console.log("getPosts data:", resPosts.data);
     },
     async deletePost(postId) {
@@ -61,6 +66,18 @@ export default {
       console.log("deletePost response:", resPost.data);
       await this.getPosts();
       alert("投稿が削除されました");
+    },
+    async toggleLike(post) {
+      const action = post.liked ? "unlike" : "like";
+      await axios.post(`http://localhost:8000/api/posts/${post.id}/${action}`);
+      post.liked = !post.liked;
+      post.like_count += post.liked ? 1 : -1;
+    },
+    async countLikes(postId) {
+      const response = await axios.get(
+        `http://localhost:8000/api/posts/${postId}/countlikes`
+      );
+      this.countLikes = response.data.like_count;
     },
   },
   created() {
@@ -94,5 +111,15 @@ export default {
 }
 .message_list_inner {
   display: flex;
+}
+.like-button {
+  padding: 0;
+  font-size: 30px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.liked {
+  color: red;
 }
 </style>
